@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#071e2e" />
+  <meta name="description" content="Noor Tasbeeh, an offline digital dhikr counter." />
+  <title>Noor Tasbeeh • Digital Dhikr</title>
+  <link rel="icon" href="icon.png" type="image/png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-theme="midnight">
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div class="app" id="app">
+    <header class="topbar">
+      <div class="logo-lockup"><div class="brand-mark" aria-hidden="true">۞</div><div><div class="wordmark">NOOR <strong>TASBEEH</strong></div><div class="wordmark-sub">YOUR MOMENTS OF DHIKR</div></div></div>
+      <button class="icon-button top-settings" aria-label="Open settings" onclick="showPage('settings')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06-1.87 1.87-.06-.06A1.7 1.7 0 0 0 16 18.4a1.7 1.7 0 0 0-1 .91V20H9v-.69a1.7 1.7 0 0 0-1-.91 1.7 1.7 0 0 0-1.87.34l-.06.06-1.87-1.87.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.91-1H3v-4h.69a1.7 1.7 0 0 0 .91-1 1.7 1.7 0 0 0-.34-1.87L4.2 7.07 6.07 5.2l.06.06A1.7 1.7 0 0 0 8 5.6a1.7 1.7 0 0 0 1-.91V4h6v.69a1.7 1.7 0 0 0 1 .91 1.7 1.7 0 0 0 1.87-.34l.06-.06 1.87 1.87-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 .91 1H21v4h-.69a1.7 1.7 0 0 0-.91 1Z"/></svg></button>
+    </header>
+    <main>
+      <section class="page active" id="page-counter" aria-label="Tasbeeh counter">
+        <div class="intro"><span class="eyebrow"><span class="tiny-star">✦</span> IN THE NAME OF ALLAH <span class="tiny-star">✦</span></span><h1>Every count, <em>a blessing.</em></h1><p>Quiet your mind. Remember your Creator.</p></div>
+        <button id="active-dhikr" class="dhikr-select" onclick="showPage('dhikr')"><span class="dhikr-select-icon">۞</span><span class="dhikr-select-copy"><small>CURRENT DHIKR</small><strong id="active-dhikr-title">SubhanAllah</strong></span><span class="chevron">⌄</span></button>
+        <div class="counter-stage">
+          <div class="stage-halo"></div>
+          <div class="tasbeeh" id="tasbeeh" role="group" aria-label="Digital tasbeeh device">
+            <div class="loop"><div class="loop-inner"></div></div>
+            <div class="lanyard-hole"><span></span></div>
+            <div class="device-back"></div>
+            <div class="device-face">
+              <div class="device-sparkle" aria-hidden="true"></div>
+              <div class="lcd-ridge"><div class="lcd"><span class="lcd-caption">DHIKR COUNTER</span><span id="lcd-number" class="lcd-number" aria-live="polite">000000</span></div></div>
+              <div class="face-labels"><span>COUNT</span><span>RESET</span></div>
+              <button class="reset-knob" onclick="confirmReset()" aria-label="Reset current count"><span></span></button>
+              <button id="count-button" class="count-knob" onclick="increment()" aria-label="Increase count"><span class="count-knob-inner"></span><span class="count-shine"></span></button>
+              <div class="device-microdots">● &nbsp; ● &nbsp; ●</div>
+            </div>
+          </div>
+        </div>
+        <div class="count-brief"><div class="count-metric"><small>YOUR PROGRESS</small><div class="progress-value"><span id="current-count">0</span> <small id="target-display">/ 33</small></div></div><div class="progress-meter"><svg viewBox="0 0 60 60" aria-hidden="true"><circle class="meter-track" cx="30" cy="30" r="24"/><circle class="meter-fill" id="meter-fill" cx="30" cy="30" r="24"/></svg><span id="progress-percent">0%</span></div></div>
+        <div class="progress-bar"><div id="progress-bar-fill"></div></div>
+        <div class="tool-row"><button onclick="undo()" class="tool-button"><span class="tool-icon">↶</span>Undo</button><button onclick="openSetCount()" class="tool-button"><span class="tool-icon">✎</span>Set count</button><button onclick="showPage('dhikr')" class="tool-button"><span class="tool-icon">▤</span>My dhikr</button></div>
+        <p class="daily-note"><span>✦</span> <strong id="today-total">0</strong> dhikr counted today</p>
+      </section>
+      <section class="page" id="page-dhikr" aria-label="Saved dhikr"><div class="section-heading"><div><span class="eyebrow">YOUR PERSONAL COLLECTION</span><h1>My <em>Dhikr</em></h1><p>Every remembrance has its own journey.</p></div><button class="round-add" onclick="openEditDhikr()" aria-label="Add dhikr">+</button></div><div class="dhikr-list" id="dhikr-list"></div><div class="help-panel"><span>✦</span><div><b>Always saved, always yours</b><p>Each tasbeeh keeps its own count and goal, even after closing the app.</p></div></div></section>
+      <section class="page" id="page-settings" aria-label="Settings"><div class="section-heading"><div><span class="eyebrow">MAKE IT YOURS</span><h1>Your <em>Settings</em></h1><p>A personal space for peaceful dhikr.</p></div></div><h2 class="section-label">COUNTER STYLE</h2><div class="theme-grid" id="theme-grid"></div><h2 class="section-label">PREFERENCES</h2><div class="settings-card"><label class="settings-row"><span><b>Night Mode</b><small>Keep only the LCD illuminated; dim everything else while counting</small></span><input id="night-mode-toggle" type="checkbox" onchange="updateSettings()" class="switch-input"><span class="switch-ui"></span></label><label class="settings-row"><span><b>Vibration</b><small>Feel a gentle tap with every count</small></span><input id="vibration-toggle" type="checkbox" onchange="updateSettings()" class="switch-input"><span class="switch-ui"></span></label><label class="settings-row"><span><b>Click sound</b><small>A soft click with every press</small></span><input id="sound-toggle" type="checkbox" onchange="updateSettings()" class="switch-input"><span class="switch-ui"></span></label><label class="settings-row"><span><b>Confirm reset</b><small>Prevent accidentally losing a count</small></span><input id="confirm-toggle" type="checkbox" onchange="updateSettings()" class="switch-input"><span class="switch-ui"></span></label></div><h2 class="section-label">YOUR DATA</h2><div class="settings-card"><button onclick="exportBackup()" class="settings-action"><span>Export backup</span><span>↗</span></button><button onclick="openImport()" class="settings-action"><span>Import backup</span><span>↗</span></button></div><p class="settings-footnote">No ads · Works offline · Your counts stay on this device unless you export them.</p></section>
+    </main>
+    <nav class="bottom-nav" aria-label="Main navigation"><button id="nav-counter" class="nav-item selected" onclick="showPage('counter')"><span class="nav-icon">◉</span><span>COUNTER</span></button><button id="nav-dhikr" class="nav-item" onclick="showPage('dhikr')"><span class="nav-icon">☷</span><span>MY DHIKR</span></button><button id="nav-settings" class="nav-item" onclick="showPage('settings')"><span class="nav-icon">⚙</span><span>SETTINGS</span></button></nav>
+  </div>
+  <div id="modal-backdrop" class="modal-backdrop" onclick="dismissModal(event)" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="event.stopPropagation()"><div class="modal-header"><h2 id="modal-title">Add dhikr</h2><button class="close-modal" onclick="closeModal()" aria-label="Close">×</button></div><div id="modal-content"></div></div></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
